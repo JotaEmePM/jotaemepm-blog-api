@@ -19,6 +19,7 @@ export const login = async ({ body }: Request, res: Response) => {
         if (response === 'PASSWORD_INCORRECT')
             res.status(403)
 
+        res.set('jwtToken', response)
         res.send(response)
     } catch (e) {
         handleHttp(res, 'ERROR_REGISTER', e)

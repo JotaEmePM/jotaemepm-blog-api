@@ -18,6 +18,7 @@ export const checkJwt = async (req: RequestExt, res: Response, next: NextFunctio
             res.send('INVALID_SESSION_TOKEN')
         }
         req.user = resultJwt
+
         next()
     } catch (e) {
         res.status(400)

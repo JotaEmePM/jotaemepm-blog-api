@@ -28,6 +28,7 @@ const login = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () 
         const response = yield (0, auth_service_1.loginUser)(email, password);
         if (response === 'PASSWORD_INCORRECT')
             res.status(403);
+        res.set('jwtToken', response);
         res.send(response);
     }
     catch (e) {
