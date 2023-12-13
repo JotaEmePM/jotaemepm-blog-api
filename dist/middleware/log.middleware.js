@@ -7,3 +7,4 @@ const logMiddleware = (_req, _res, next) => {
     next();
 };
 exports.logMiddleware = logMiddleware;
+//# sourceMappingURL=log.middleware.js.map

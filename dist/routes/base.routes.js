@@ -20,3 +20,4 @@ class BaseRoutes {
     }
 }
 exports.BaseRoutes = BaseRoutes;
+//# sourceMappingURL=base.routes.js.map

@@ -18,3 +18,4 @@ function dbConnect() {
     });
 }
 exports.default = dbConnect;
+//# sourceMappingURL=mongo.js.map

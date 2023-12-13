@@ -7,3 +7,4 @@ const routes = (0, express_1.Router)();
 exports.routes = routes;
 routes.post('/register', auth_controller_1.register);
 routes.post('/login', auth_controller_1.login);
+//# sourceMappingURL=auth.routes.js.map

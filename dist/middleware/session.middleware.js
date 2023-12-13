@@ -29,3 +29,4 @@ const checkJwt = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.checkJwt = checkJwt;
+//# sourceMappingURL=session.middleware.js.map

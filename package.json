@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/app.ts",
-    "lint": "eslint . --ext .ts --fix",
-    "build": "tsc"
+    "start": "nodemon src/index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
+    "lint": "eslint . --ext .ts --fix"
   },
   "dependencies": {
     "@types/dotenv": "^8.2.0",
@@ -32,10 +34,17 @@
     "@typescript-eslint/parser": "^6.14.0",
     "eslint": "^8.55.0",
     "nodemon": "^3.0.2",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": "18.x"
-  }
+    "node": "20.x"
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ]
 }

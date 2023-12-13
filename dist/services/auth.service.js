@@ -37,3 +37,4 @@ const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, functio
         return (0, jwt_handle_1.generateToken)(userDB.email);
 });
 exports.loginUser = loginUser;
+//# sourceMappingURL=auth.service.js.map

@@ -35,3 +35,4 @@ const login = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.login = login;
+//# sourceMappingURL=auth.controller.js.map

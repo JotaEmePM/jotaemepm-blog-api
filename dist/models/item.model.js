@@ -32,3 +32,4 @@ const ItemSchema = new mongoose_1.Schema({
     versionKey: false
 });
 exports.ItemModel = (0, mongoose_1.model)('items', ItemSchema);
+//# sourceMappingURL=item.model.js.map

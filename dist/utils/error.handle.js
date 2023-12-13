@@ -9,3 +9,4 @@ const handleHttp = (res, error, errorRaw) => {
     res.send({ error });
 };
 exports.handleHttp = handleHttp;
+//# sourceMappingURL=error.handle.js.map

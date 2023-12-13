@@ -12,3 +12,4 @@ routes.get('/:id', item_controller_1.getItem);
 routes.post('/', item_controller_1.postItem);
 routes.put('/:id', item_controller_1.updateItem);
 routes.delete('/:id', item_controller_1.deleteItem);
+//# sourceMappingURL=item.routes.js.map

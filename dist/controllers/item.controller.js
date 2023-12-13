@@ -69,3 +69,4 @@ const deleteItem = ({ params }, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.deleteItem = deleteItem;
+//# sourceMappingURL=item.controller.js.map

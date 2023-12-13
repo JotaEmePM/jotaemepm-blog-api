@@ -24,3 +24,4 @@ const verifyToken = (jwt) => __awaiter(void 0, void 0, void 0, function* () {
     return yield (0, jsonwebtoken_1.verify)(jwt, JWT_SECRET);
 });
 exports.verifyToken = verifyToken;
+//# sourceMappingURL=jwt.handle.js.map

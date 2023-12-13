@@ -30,3 +30,4 @@ const UserSchema = new mongoose_1.Schema({
     versionKey: false
 });
 exports.UserModel = (0, mongoose_1.model)('auth', UserSchema);
+//# sourceMappingURL=user.model.js.map

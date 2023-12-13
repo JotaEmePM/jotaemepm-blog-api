@@ -9,3 +9,4 @@ const routes = (server) => {
     server.use('/auth', auth_routes_1.routes);
 };
 exports.default = routes;
+//# sourceMappingURL=routes.js.map
