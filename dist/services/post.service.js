@@ -27,17 +27,31 @@ const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* ()
         visible: post.visible && true,
         creationDate: new Date()
     };
-    const response = yield post_model_1.PostModel.create(dataModel);
+    const response = yield post_model_1.post.create(dataModel);
     return response;
 });
 exports.newPost = newPost;
-const getPosts = () => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield post_model_1.PostModel.find({});
+const getPosts = (page = 1) => __awaiter(void 0, void 0, void 0, function* () {
+    // const response = 
+    //   await PostModel.find({
+    //     visible: true
+    //   })
+    //   .sort({ 'creationDate': -1 })
+    //   .limit(10)
+    //select: "title date author",
+    const options = {
+        query: { 'visible': true },
+        sort: { 'creationDate': -1 },
+        limit: 10,
+        page: page
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+    const response = post_model_1.post.paginate(options);
     return response;
 });
 exports.getPosts = getPosts;
 const getPost = (slug) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield post_model_1.PostModel.find({ slug });
+    const response = yield post_model_1.post.find({ slug });
     return response;
 });
 exports.getPost = getPost;
@@ -50,7 +64,7 @@ const sluggyPost = (text) => __awaiter(void 0, void 0, void 0, function* () {
             slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}`;
         else
             slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}-${iteration}`;
-        const existSlug = yield post_model_1.PostModel.findOne({ slug });
+        const existSlug = yield post_model_1.post.findOne({ slug });
         if (!existSlug)
             slugExist = false;
         else

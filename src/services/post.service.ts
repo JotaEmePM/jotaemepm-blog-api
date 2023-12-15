@@ -1,4 +1,4 @@
-import { PostModel } from '../models/post.model'
+import { post as PostModel } from '../models/post.model'
 import { Post } from '../interfaces/post.interface'
 import { handleSlugifyString } from '../utils/slugify.handle'
 import { NewPostDTO } from '../dto/request/newpost.dto'
@@ -25,8 +25,27 @@ export const newPost = async (post: NewPostDTO, userId: string) => {
   return response
 }
 
-export const getPosts = async () => {
-  const response = await PostModel.find({})
+export const getPosts = async (page: number = 1) => {
+  // const response = 
+  //   await PostModel.find({
+  //     visible: true
+  //   })
+  //   .sort({ 'creationDate': -1 })
+  //   .limit(10)
+
+  //select: "title date author",
+
+
+  const options = {
+    query: { 'visible': true },    
+    sort: { 'creationDate': -1 },    
+    limit: 10,
+    page: page
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+  const response = PostModel.paginate(options)    
+
   return response
 }
 

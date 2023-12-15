@@ -14,10 +14,11 @@ const post_service_1 = require("../services/post.service");
 const error_handle_1 = require("../utils/error.handle");
 class PostController {
     constructor() { }
-    getPosts(_req, res) {
+    getPosts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield (0, post_service_1.getPosts)();
+                const { page } = req.query;
+                const response = yield (0, post_service_1.getPosts)(Number(page));
                 res.status(200).send(response);
             }
             catch (e) {

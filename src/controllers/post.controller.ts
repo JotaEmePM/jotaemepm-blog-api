@@ -7,10 +7,12 @@ import { JwtPayload } from 'jsonwebtoken'
 export class PostController {
     constructor() { }
 
-    public async getPosts(_req: Request, res: Response): Promise<void> {
+    public async getPosts(req: Request, res: Response): Promise<void> {
         try {
-            const response = await getPosts()
-            res.status(200).send(response)
+            const {page} = req.query
+            
+                const response = await getPosts(Number(page))
+                res.status(200).send(response)            
         } catch (e) {
             handleHttp(res, 'ERROR_POST_GET', e)
         }
