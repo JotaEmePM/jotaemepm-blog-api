@@ -9,9 +9,9 @@ export class PostController {
 
     public async getPosts(req: Request, res: Response): Promise<void> {
         try {
-            const {page} = req.query
+            const {page, search} = req.query
             
-                const response = await getPosts(Number(page))
+                const response = await getPosts(Number(page), String(search))
                 res.status(200).send(response)            
         } catch (e) {
             handleHttp(res, 'ERROR_POST_GET', e)

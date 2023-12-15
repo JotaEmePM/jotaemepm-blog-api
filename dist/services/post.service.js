@@ -13,7 +13,7 @@ exports.getPost = exports.getPosts = exports.newPost = void 0;
 const post_model_1 = require("../models/post.model");
 const slugify_handle_1 = require("../utils/slugify.handle");
 const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const tags = post.tags.split(',').map((tag) => {
+    const tags = post.tags.split(',').map(tag => {
         return (0, slugify_handle_1.handleSlugifyString)(tag);
     });
     const dataModel = {
@@ -31,8 +31,8 @@ const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* ()
     return response;
 });
 exports.newPost = newPost;
-const getPosts = (page = 1) => __awaiter(void 0, void 0, void 0, function* () {
-    // const response = 
+const getPosts = (page = 1, search) => __awaiter(void 0, void 0, void 0, function* () {
+    // const response =
     //   await PostModel.find({
     //     visible: true
     //   })
@@ -40,13 +40,15 @@ const getPosts = (page = 1) => __awaiter(void 0, void 0, void 0, function* () {
     //   .limit(10)
     //select: "title date author",
     const options = {
-        query: { 'visible': true },
-        sort: { 'creationDate': -1 },
+        query: {
+            visible: true
+        },
+        sort: { creationDate: -1 },
         limit: 10,
         page: page
     };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-    const response = post_model_1.post.paginate(options);
+    console.log(options);
+    const response = yield post_model_1.post.paginate(options);
     return response;
 });
 exports.getPosts = getPosts;

@@ -2,12 +2,12 @@ import { post as PostModel } from '../models/post.model'
 import { Post } from '../interfaces/post.interface'
 import { handleSlugifyString } from '../utils/slugify.handle'
 import { NewPostDTO } from '../dto/request/newpost.dto'
+import { title } from 'process'
 
 export const newPost = async (post: NewPostDTO, userId: string) => {
-
-    const tags = post.tags.split(',').map((tag) => {
-        return handleSlugifyString(tag)
-    })
+  const tags = post.tags.split(',').map(tag => {
+    return handleSlugifyString(tag)
+  })
 
   const dataModel: Post = {
     slug: await sluggyPost(post.title),
@@ -25,8 +25,8 @@ export const newPost = async (post: NewPostDTO, userId: string) => {
   return response
 }
 
-export const getPosts = async (page: number = 1) => {
-  // const response = 
+export const getPosts = async (page: number = 1, search: string) => {
+  // const response =
   //   await PostModel.find({
   //     visible: true
   //   })
@@ -34,18 +34,19 @@ export const getPosts = async (page: number = 1) => {
   //   .limit(10)
 
   //select: "title date author",
-
-
+  
   const options = {
-    query: { 'visible': true },    
-    sort: { 'creationDate': -1 },    
+    query: {
+      visible: true
+    },
+    sort: { creationDate: -1 },
     limit: 10,
     page: page
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-  const response = PostModel.paginate(options)    
+  console.log(options)
 
+  const response = await PostModel.paginate(options)
   return response
 }
 
@@ -59,16 +60,13 @@ const sluggyPost = async (text: string) => {
   let slugExist = true
   let slug = ''
   do {
-    if(iteration == 0)
-      slug = `${handleSlugifyString(text)}`
-    else
-      slug = `${handleSlugifyString(text)}-${iteration}`
+    if (iteration == 0) slug = `${handleSlugifyString(text)}`
+    else slug = `${handleSlugifyString(text)}-${iteration}`
 
     const existSlug = await PostModel.findOne({ slug })
 
     if (!existSlug) slugExist = false
     else iteration += 1
-    
   } while (slugExist)
 
   return slug
