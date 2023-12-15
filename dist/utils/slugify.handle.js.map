@@ -1,0 +1,1 @@
+{"version":3,"file":"slugify.handle.js","sourceRoot":"","sources":["../../src/utils/slugify.handle.ts"],"names":[],"mappings":";;;;;;AAAA,sDAA6B;AAEtB,MAAM,mBAAmB,GAAG,CAAC,IAAY,EAAE,EAAE;IAChD,OAAO,IAAA,iBAAO,EAAC,IAAI,EAAE;QACjB,WAAW,EAAE,GAAG;QAChB,KAAK,EAAE,IAAI;QACX,MAAM,EAAE,IAAI;QACZ,IAAI,EAAE,IAAI;KACb,CAAC,CAAA;AACN,CAAC,CAAA;AAPY,QAAA,mBAAmB,uBAO/B"}

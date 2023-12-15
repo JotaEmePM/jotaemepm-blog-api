@@ -11,15 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPost = exports.getPosts = exports.newPost = void 0;
 const post_model_1 = require("../models/post.model");
+const slugify_handle_1 = require("../utils/slugify.handle");
 const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const tags = post.tags.split(',').map((tag) => {
+        return (0, slugify_handle_1.handleSlugifyString)(tag);
+    });
     const dataModel = {
-        slug: 'aaa-aaa',
+        slug: yield sluggyPost(post.title),
         title: post.title,
         user_id: userId,
         subtitle: '',
         img: '',
         content: post.content,
-        tags: [...post.tags],
+        tags: [...tags],
         visible: post.visible && true,
         creationDate: new Date()
     };
@@ -37,4 +41,19 @@ const getPost = (slug) => __awaiter(void 0, void 0, void 0, function* () {
     return response;
 });
 exports.getPost = getPost;
+const sluggyPost = (text) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    let iteration = 0;
+    let slugExist = true;
+    let slug = '';
+    do {
+        slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}${(_a = iteration > 0) !== null && _a !== void 0 ? _a : `-${iteration}`}`;
+        const existSlug = yield post_model_1.PostModel.findOne({ slug });
+        if (existSlug)
+            slugExist = false;
+        else
+            iteration += 1;
+    } while (slugExist);
+    return slug;
+});
 //# sourceMappingURL=post.service.js.map
