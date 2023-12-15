@@ -53,6 +53,7 @@ const sluggyPost = (text) => __awaiter(void 0, void 0, void 0, function* () {
             slugExist = false;
         else
             iteration += 1;
+        console.log(`iteration-slug: ${slug} `);
     } while (slugExist);
     return slug;
 });

@@ -46,6 +46,7 @@ const sluggyPost = async (text: string) => {
 
     if (existSlug) slugExist = false
     else iteration += 1
+    console.log(`iteration-slug: ${slug} `)
   } while (slugExist)
 
   return slug
