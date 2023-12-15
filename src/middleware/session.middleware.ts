@@ -1,10 +1,6 @@
-import { Request, Response, NextFunction } from 'express'
+import { Response, NextFunction } from 'express'
 import { verifyToken } from '../utils/jwt.handle'
-import { JwtPayload } from 'jsonwebtoken'
-
-export interface RequestExt extends Request {
-    user?: string | JwtPayload
-}
+import { RequestExt } from '../interfaces/RequestExt.interface'
 
 export const checkJwt = async (req: RequestExt, res: Response, next: NextFunction) => {
     try {
@@ -25,3 +21,5 @@ export const checkJwt = async (req: RequestExt, res: Response, next: NextFunctio
         res.send('SESSION_INVALID')
     }
 }
+
+export { RequestExt }

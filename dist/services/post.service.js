@@ -11,8 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPost = exports.getPosts = exports.newPost = void 0;
 const post_model_1 = require("../models/post.model");
-const newPost = (post) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield post_model_1.PostModel.create(post);
+const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const dataModel = {
+        slug: 'aaa-aaa',
+        title: post.title,
+        user_id: userId,
+        subtitle: '',
+        img: '',
+        content: post.content,
+        tags: [...post.tags],
+        visible: post.visible && true,
+        creationDate: new Date()
+    };
+    const response = yield post_model_1.PostModel.create(dataModel);
     return response;
 });
 exports.newPost = newPost;

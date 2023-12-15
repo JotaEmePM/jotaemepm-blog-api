@@ -1,26 +1,35 @@
 import { Request, Response } from 'express'
 import { newPost, getPosts } from '../services/post.service'
 import { handleHttp } from '../utils/error.handle'
+import { RequestExt } from '../interfaces/RequestExt.interface'
+import { JwtPayload } from 'jsonwebtoken'
 
 export class PostController {
-    constructor() {}
+    constructor() { }
 
     public async getPosts(_req: Request, res: Response): Promise<void> {
         try {
-        const response = await getPosts()
-        res.status(200).send(response)
-    } catch (e) {
-        handleHttp(res, 'ERROR_POST_ITEM', e)
-    }
-    }
-
-    public async newPost({body}: Request, res: Response): Promise<void> {
-        try {
-            //const { title, slug, user_id} = body
-            const response = await newPost(body)
+            const response = await getPosts()
             res.status(200).send(response)
         } catch (e) {
-            handleHttp(res, 'ERROR_POST_ITEM', e)
+            handleHttp(res, 'ERROR_POST_GET', e)
+        }
+    }
+
+    public async newPost(req: RequestExt, res: Response): Promise<void> {
+        try {
+            const { user } = req
+
+            if (!user)
+                return
+
+            const { id } = user as JwtPayload
+
+
+            const response = await newPost(req.body, id)
+            res.status(200).send(response)
+        } catch (e) {
+            handleHttp(res, 'ERROR_POST_POST', e)
         }
     }
 }

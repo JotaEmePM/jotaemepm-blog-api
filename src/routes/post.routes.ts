@@ -9,6 +9,7 @@ const controller = new PostController()
 routes.get('/', controller.getPosts)
 routes.get('/:slug', controller.getPosts)
 routes.post('/', checkJwt, controller.newPost)
+//controller.newPost
 
 //routes.put('/:slug', editPost),
 //routes.put('/:slug/disable', disablePost)

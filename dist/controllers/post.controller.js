@@ -21,19 +21,22 @@ class PostController {
                 res.status(200).send(response);
             }
             catch (e) {
-                (0, error_handle_1.handleHttp)(res, 'ERROR_POST_ITEM', e);
+                (0, error_handle_1.handleHttp)(res, 'ERROR_POST_GET', e);
             }
         });
     }
-    newPost({ body }, res) {
+    newPost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                //const { title, slug, user_id} = body
-                const response = yield (0, post_service_1.newPost)(body);
+                const { user } = req;
+                if (!user)
+                    return;
+                const { id } = user;
+                const response = yield (0, post_service_1.newPost)(req.body, id);
                 res.status(200).send(response);
             }
             catch (e) {
-                (0, error_handle_1.handleHttp)(res, 'ERROR_POST_ITEM', e);
+                (0, error_handle_1.handleHttp)(res, 'ERROR_POST_POST', e);
             }
         });
     }
