@@ -40,13 +40,16 @@ const sluggyPost = async (text: string) => {
   let slugExist = true
   let slug = ''
   do {
-    slug = `${handleSlugifyString(text)}${iteration > 0 ?? `-${iteration}`}`
+    if(iteration == 0)
+      slug = `${handleSlugifyString(text)}`
+    else
+      slug = `${handleSlugifyString(text)}-${iteration}`
 
     const existSlug = await PostModel.findOne({ slug })
 
-    if (existSlug) slugExist = false
+    if (!existSlug) slugExist = false
     else iteration += 1
-    console.log(`iteration-slug: ${slug} `)
+    
   } while (slugExist)
 
   return slug

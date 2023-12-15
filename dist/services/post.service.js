@@ -42,18 +42,19 @@ const getPost = (slug) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getPost = getPost;
 const sluggyPost = (text) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     let iteration = 0;
     let slugExist = true;
     let slug = '';
     do {
-        slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}${(_a = iteration > 0) !== null && _a !== void 0 ? _a : `-${iteration}`}`;
+        if (iteration == 0)
+            slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}`;
+        else
+            slug = `${(0, slugify_handle_1.handleSlugifyString)(text)}-${iteration}`;
         const existSlug = yield post_model_1.PostModel.findOne({ slug });
-        if (existSlug)
+        if (!existSlug)
             slugExist = false;
         else
             iteration += 1;
-        console.log(`iteration-slug: ${slug} `);
     } while (slugExist);
     return slug;
 });
