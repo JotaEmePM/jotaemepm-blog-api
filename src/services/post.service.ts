@@ -1,28 +1,37 @@
 import { post as PostModel } from '../models/post.model'
-import { Post } from '../interfaces/post.interface'
+
 import { handleSlugifyString } from '../utils/slugify.handle'
-import { NewPostDTO } from '../dto/request/newpost.dto'
-import { title } from 'process'
+import { newPostDTO,validateNewPost } from '../dto/request/newpost.dto'
+import { Post } from '../interfaces/post.interface'
 
-export const newPost = async (post: NewPostDTO, userId: string) => {
-  const tags = post.tags.split(',').map(tag => {
-    return handleSlugifyString(tag)
-  })
-
-  const dataModel: Post = {
-    slug: await sluggyPost(post.title),
-    title: post.title,
-    user_id: userId,
-    subtitle: '',
-    img: '',
-    content: post.content,
-    tags: [...tags],
-    visible: post.visible && true,
-    creationDate: new Date()
+export const newPost = async (post: newPostDTO, userId: string) => {
+  try {
+    const resultValidation = await validateNewPost(post)
+    
+    if(!resultValidation.success)
+      throw new Error('Error newPost Validation ' +  JSON.stringify(resultValidation.error.errors))
+    
+    const tags = post.tags.map(tag => {
+      return handleSlugifyString(tag)
+    })
+  
+    const dataModel: Post = {
+      slug: await sluggyPost(post.title),
+      title: post.title,
+      user_id: userId,
+      subtitle: post.subtitle,
+      img: post.img,
+      content: post.content,
+      tags: [...tags],
+      visible: post.visible && true,
+      creationDate: new Date()
+    }
+    
+    const response = await PostModel.create(dataModel)
+    return response
+  } catch(err) {
+    throw new Error('Error newPost Service ' + err)
   }
-
-  const response = await PostModel.create(dataModel)
-  return response
 }
 
 export const getPosts = async (page: number = 1, search: string) => {
@@ -44,7 +53,6 @@ export const getPosts = async (page: number = 1, search: string) => {
     page: page
   }
 
-  console.log(options)
 
   const response = await PostModel.paginate(options)
   return response

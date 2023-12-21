@@ -26,8 +26,7 @@ export class PostController {
                 return
 
             const { id } = user as JwtPayload
-
-
+            
             const response = await newPost(req.body, id)
             res.status(200).send(response)
         } catch (e) {

@@ -12,23 +12,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPost = exports.getPosts = exports.newPost = void 0;
 const post_model_1 = require("../models/post.model");
 const slugify_handle_1 = require("../utils/slugify.handle");
+const newpost_dto_1 = require("../dto/request/newpost.dto");
 const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* () {
-    const tags = post.tags.split(',').map(tag => {
-        return (0, slugify_handle_1.handleSlugifyString)(tag);
-    });
-    const dataModel = {
-        slug: yield sluggyPost(post.title),
-        title: post.title,
-        user_id: userId,
-        subtitle: '',
-        img: '',
-        content: post.content,
-        tags: [...tags],
-        visible: post.visible && true,
-        creationDate: new Date()
-    };
-    const response = yield post_model_1.post.create(dataModel);
-    return response;
+    try {
+        const resultValidation = yield (0, newpost_dto_1.validateNewPost)(post);
+        if (!resultValidation.success)
+            throw new Error('Error newPost Validation ' + JSON.stringify(resultValidation.error.errors));
+        const tags = post.tags.map(tag => {
+            return (0, slugify_handle_1.handleSlugifyString)(tag);
+        });
+        const dataModel = {
+            slug: yield sluggyPost(post.title),
+            title: post.title,
+            user_id: userId,
+            subtitle: post.subtitle,
+            img: post.img,
+            content: post.content,
+            tags: [...tags],
+            visible: post.visible && true,
+            creationDate: new Date()
+        };
+        const response = yield post_model_1.post.create(dataModel);
+        return response;
+    }
+    catch (err) {
+        throw new Error('Error newPost Service ' + err);
+    }
 });
 exports.newPost = newPost;
 const getPosts = (page = 1, search) => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,7 +56,6 @@ const getPosts = (page = 1, search) => __awaiter(void 0, void 0, void 0, functio
         limit: 10,
         page: page
     };
-    console.log(options);
     const response = yield post_model_1.post.paginate(options);
     return response;
 });
