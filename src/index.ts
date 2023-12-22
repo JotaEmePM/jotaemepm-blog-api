@@ -6,6 +6,7 @@ import db from './config/mongo'
 import morgan from 'morgan'
 //import { logMiddleware } from './middleware/log.middleware'
 
+
 class Server {
     public app: express.Application
     public port: number
@@ -31,6 +32,7 @@ class Server {
 
         routes(this.app)
     }
+    
 
     public start(): void {
         this.app.listen(this.app.get('port'), () => {
@@ -38,11 +40,7 @@ class Server {
             console.log(`App listening on port ${this.port}`)
         })
     }
-
 }
 
 const server = new Server()
-
 server.start()
-
-

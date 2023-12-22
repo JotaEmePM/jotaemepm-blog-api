@@ -17,8 +17,8 @@ class PostController {
     getPosts(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { page, search } = req.query;
-                const response = yield (0, post_service_1.getPosts)(Number(page), String(search));
+                const { search, page } = req.query;
+                const response = yield (0, post_service_1.getPosts)(page, search);
                 res.status(200).send(response);
             }
             catch (e) {

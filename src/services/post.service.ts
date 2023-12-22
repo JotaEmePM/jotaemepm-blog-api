@@ -34,7 +34,7 @@ export const newPost = async (post: newPostDTO, userId: string) => {
   }
 }
 
-export const getPosts = async (page: number = 1, search: string) => {
+export const getPosts = async (page: number = 1, search: string= '') => {
   // const response =
   //   await PostModel.find({
   //     visible: true
@@ -46,7 +46,22 @@ export const getPosts = async (page: number = 1, search: string) => {
   
   const options = {
     query: {
-      visible: true
+      visible: true,
+      // $or: [
+      // {title: { $regex: '.*' + search + '.*' },
+      // content: { $regex: '.*' + search + '.*' }
+      // }]
+      $or: [
+        {
+          title: { $regex: '.*' + search + '.*', $options:'i' }
+        },
+        {
+          content: { $regex: '.*' + search + '.*',$options:'i' }
+        },
+        {
+          tags: { $regex: '.*' + search + '.*',$options:'i' }
+        }        
+      ]
     },
     sort: { creationDate: -1 },
     limit: 10,

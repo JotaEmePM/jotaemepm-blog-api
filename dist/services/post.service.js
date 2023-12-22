@@ -40,7 +40,7 @@ const newPost = (post, userId) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.newPost = newPost;
-const getPosts = (page = 1, search) => __awaiter(void 0, void 0, void 0, function* () {
+const getPosts = (page = 1, search = '') => __awaiter(void 0, void 0, void 0, function* () {
     // const response =
     //   await PostModel.find({
     //     visible: true
@@ -50,7 +50,22 @@ const getPosts = (page = 1, search) => __awaiter(void 0, void 0, void 0, functio
     //select: "title date author",
     const options = {
         query: {
-            visible: true
+            visible: true,
+            // $or: [
+            // {title: { $regex: '.*' + search + '.*' },
+            // content: { $regex: '.*' + search + '.*' }
+            // }]
+            $or: [
+                {
+                    title: { $regex: '.*' + search + '.*', $options: 'i' }
+                },
+                {
+                    content: { $regex: '.*' + search + '.*', $options: 'i' }
+                },
+                {
+                    tags: { $regex: '.*' + search + '.*', $options: 'i' }
+                }
+            ]
         },
         sort: { creationDate: -1 },
         limit: 10,
