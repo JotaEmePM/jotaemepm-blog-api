@@ -13,12 +13,16 @@ const morgan_1 = __importDefault(require("morgan"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = Number(process.env.PORT) | 3030;
+        this.port = Number(process.env.PORT) | 3031;
         this.config();
     }
     config() {
+        var corsOptions = {
+            origin: '*',
+            optionsSuccessStatus: 200
+        };
         this.app.set('port', this.port);
-        this.app.use((0, cors_1.default)());
+        this.app.use((0, cors_1.default)(corsOptions));
         this.app.use(express_1.default.json());
         //this.app.use(logMiddleware)
         this.app.use((0, morgan_1.default)('tiny'));

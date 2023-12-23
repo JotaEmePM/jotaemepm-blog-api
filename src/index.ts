@@ -13,13 +13,19 @@ class Server {
 
     constructor() {
         this.app = express()
-        this.port = Number(process.env.PORT) | 3030
+        this.port = Number(process.env.PORT) | 3031
         this.config()
     }
 
     public config(): void {
+
+        var corsOptions = {
+            origin: '*',
+            optionsSuccessStatus: 200
+          }
+
         this.app.set('port', this.port)
-        this.app.use(cors())
+        this.app.use(cors(corsOptions))
         this.app.use(express.json())
 
         //this.app.use(logMiddleware)
