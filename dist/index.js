@@ -17,7 +17,7 @@ class Server {
         this.config();
     }
     config() {
-        var corsOptions = {
+        const corsOptions = {
             origin: '*',
             optionsSuccessStatus: 200
         };

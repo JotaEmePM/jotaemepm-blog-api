@@ -19,7 +19,7 @@ class Server {
 
     public config(): void {
 
-        var corsOptions = {
+        const corsOptions = {
             origin: '*',
             optionsSuccessStatus: 200
           }
