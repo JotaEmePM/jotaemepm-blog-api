@@ -17,7 +17,7 @@ const registerNewUser = ({ email, password, name }) => __awaiter(void 0, void 0,
     const checkIs = yield user_model_1.UserModel.findOne({ email });
     if (checkIs)
         return 'ALREADY_USER';
-    const [passwordHash, salt] = yield (0, password_handle_1.encrypt)(password);
+    const [passwordHash, salt] = yield (0, password_handle_1.encrypt_pbkdf2)(password);
     const registerNewUser = yield user_model_1.UserModel.create({
         password: passwordHash,
         email, name, salt
@@ -29,7 +29,7 @@ const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, functio
     const userDB = yield user_model_1.UserModel.findOne({ email });
     if (!userDB)
         return 'USER_!EXIST';
-    const hashedPassword = yield (0, password_handle_1.encryptWithHash)(password, userDB.salt);
+    const hashedPassword = yield (0, password_handle_1.encryptWithHash_pbkdf2)(password, userDB.salt);
     const resultLogin = (hashedPassword === userDB.password) ? 'LOGIN_OK' : 'PASSWORD_INCORRECT';
     if (resultLogin === 'PASSWORD_INCORRECT')
         return resultLogin;

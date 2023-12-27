@@ -7,7 +7,7 @@ const routes = Router()
 const controller = new PostController()
 
 routes.get('/', controller.getPosts)
-routes.get('/:slug', controller.getPosts)
+routes.get('/:slug', controller.getPostBySlugId)
 routes.post('/', checkJwt, controller.newPost)
 //controller.newPost
 

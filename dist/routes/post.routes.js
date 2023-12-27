@@ -8,6 +8,6 @@ const routes = (0, express_1.Router)();
 exports.routes = routes;
 const controller = new post_controller_1.PostController();
 routes.get('/', controller.getPosts);
-routes.get('/:slug', controller.getPosts);
+routes.get('/:slug', controller.getPostBySlugId);
 routes.post('/', session_middleware_1.checkJwt, controller.newPost);
 //# sourceMappingURL=post.routes.js.map
