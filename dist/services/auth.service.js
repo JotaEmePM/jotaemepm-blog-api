@@ -9,20 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerNewUser = void 0;
+exports.requestPasswordChange = exports.loginUser = exports.registerNewUser = void 0;
+const guid_handle_1 = require("../utils/guid.handle");
 const jwt_handle_1 = require("../utils/jwt.handle");
 const password_handle_1 = require("../utils/password.handle");
 const user_model_1 = require("./../models/user.model");
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const registerNewUser = ({ email, password, name }) => __awaiter(void 0, void 0, void 0, function* () {
     const checkIs = yield user_model_1.UserModel.findOne({ email });
     if (checkIs)
-        return 'ALREADY_USER';
+        return [null, 'ALREADY_USER'];
     const [passwordHash, salt] = yield (0, password_handle_1.encrypt_pbkdf2)(password);
+    const verification_code = (0, guid_handle_1.generateGUID)();
     const registerNewUser = yield user_model_1.UserModel.create({
         password: passwordHash,
-        email, name, salt
+        email, name, salt, verification_code,
+        verificated: false
     });
-    return registerNewUser;
+    return [registerNewUser, verification_code];
 });
 exports.registerNewUser = registerNewUser;
 const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,4 +41,7 @@ const loginUser = (email, password) => __awaiter(void 0, void 0, void 0, functio
         return (0, jwt_handle_1.generateToken)(userDB.email);
 });
 exports.loginUser = loginUser;
+const requestPasswordChange = (_email) => {
+};
+exports.requestPasswordChange = requestPasswordChange;
 //# sourceMappingURL=auth.service.js.map

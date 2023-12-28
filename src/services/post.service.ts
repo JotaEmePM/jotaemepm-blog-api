@@ -74,7 +74,6 @@ export const getPosts = async (page: number = 1, search: string= '') => {
 }
 
 export const getPost = async (slug: string) => {
-  console.log(slug)
   const response = await PostModel.find({ slug })
   return response
 }

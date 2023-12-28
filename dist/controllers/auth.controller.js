@@ -10,12 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.register = void 0;
+const email_service_1 = require("../services/email.service");
 const auth_service_1 = require("../services/auth.service");
 const error_handle_1 = require("../utils/error.handle");
 const register = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield (0, auth_service_1.registerNewUser)(body);
-        res.send(response);
+        const [createdUser, verification_code] = yield (0, auth_service_1.registerNewUser)(body);
+        if (verification_code === 'ALREADY_USER')
+            res.status(201).send('USER ALREADY EXIST');
+        const { name, email } = body;
+        (0, email_service_1.sendWelcomeEmail)(email, name, 'Bienvenido a JotaEmePM.dev', verification_code);
+        res.send(createdUser);
     }
     catch (e) {
         (0, error_handle_1.handleHttp)(res, 'ERROR_REGISTER', e);
@@ -36,4 +41,19 @@ const login = ({ body }, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.login = login;
+// export const requestChangePassword = async({ body }: Request, res: Response) => {
+//     try {
+//         const { email } = body
+//         const response = await loginUser(email)
+//         if (response === 'PASSWORD_INCORRECT')
+//             res.status(403)
+//         res.set('jwtToken', response)
+//         res.send(response)
+//     } catch (e) {
+//         handleHttp(res, 'ERROR_REGISTER', e)
+//     }
+// }
+// export const changePassword = async (_req: Request, res: Response)=> {
+//     res.status(200)
+// }
 //# sourceMappingURL=auth.controller.js.map

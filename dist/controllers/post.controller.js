@@ -29,11 +29,8 @@ class PostController {
     getPostBySlugId(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log('getpostbyslug');
                 const { slug } = req.params;
-                console.log(slug);
                 const slugStr = (slug !== null) ? slug === null || slug === void 0 ? void 0 : slug.toString() : '';
-                console.log(slugStr);
                 const response = yield (0, post_service_1.getPost)(slugStr);
                 res.status(200).send(response);
             }

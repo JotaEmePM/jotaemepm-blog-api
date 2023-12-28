@@ -76,7 +76,6 @@ const getPosts = (page = 1, search = '') => __awaiter(void 0, void 0, void 0, fu
 });
 exports.getPosts = getPosts;
 const getPost = (slug) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(slug);
     const response = yield post_model_1.post.find({ slug });
     return response;
 });

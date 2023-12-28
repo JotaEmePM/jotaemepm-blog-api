@@ -29,11 +29,8 @@ export class PostController {
 
     public async getPostBySlugId(req: Request, res: Response): Promise<void> {
         try {
-            console.log('getpostbyslug')
             const { slug } = req.params as unknown as RequestQueryGetPostBySlug
-            console.log(slug)
             const slugStr: string = (slug !== null) ? slug?.toString(): ''
-            console.log(slugStr)
             const response = await getPost(slugStr)
 
             res.status(200).send(response)
