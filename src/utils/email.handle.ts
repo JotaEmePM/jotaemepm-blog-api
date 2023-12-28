@@ -27,6 +27,6 @@ export const formatTemplate = async (template: string, data: EmailData[]) => {
 }
 
 export const readEmailTemplate = async (template_name: string): Promise<string> =>  {
-    const file = readFileSync(`../src/email_templates/${template_name}.html`, 'utf-8')
+    const file = readFileSync(`./email_templates/${template_name}.html`, 'utf-8')
     return file
 }
