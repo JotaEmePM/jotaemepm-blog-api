@@ -47,6 +47,9 @@
   "engines": {
     "node": "20.x"
   },
-
+  "pre-commit": [
+    "ts.check"
+    
+  ],
   "packageManager": "yarn@4.0.2"
 }
