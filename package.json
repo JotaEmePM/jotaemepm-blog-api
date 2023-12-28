@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "build": "rimraf dist && tsc && mkdir dist/email_templates && xcopy /s /q /e /i /h '.\\src\\email_templates' '.\\dist\\email_templates'",
+    "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "copy-files": "cp ./src/email_templates ./dist",
@@ -48,8 +48,9 @@
     "node": "20.x"
   },
   "pre-commit": [
-    "ts.check"
-    
+    "ts.check",
+    "build",
+    "add-build"
   ],
   "packageManager": "yarn@4.0.2"
 }

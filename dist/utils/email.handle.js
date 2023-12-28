@@ -34,7 +34,7 @@ const formatTemplate = (template, data) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.formatTemplate = formatTemplate;
 const readEmailTemplate = (template_name) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = (0, fs_1.readFileSync)(`./dist/email_templates/${template_name}.html`, 'utf-8');
+    const file = (0, fs_1.readFileSync)(`./src/email_templates/${template_name}.html`, 'utf-8');
     return file;
 });
 exports.readEmailTemplate = readEmailTemplate;
